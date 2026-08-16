@@ -1,15 +1,20 @@
-FROM node:22-alpine AS builder
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
+# Use Node.js Alpine base image
+FROM node:alpine
 
-FROM node:22-alpine AS production
+# Create and set the working directory inside the container
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
-COPY --from=builder /app/dist ./dist
-USER node
+
+# Copy package.json and package-lock.json to the working directory
+COPY package.json package-lock.json /app/
+
+# Install dependencies
+RUN npm install
+
+# Copy the entire codebase to the working directory
+COPY . /app/
+
+# Expose the port your container app
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+
+# Define the command to start your application (replace "start" with the actual command to start your app)
+CMD ["npm", "start"]
