@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: amazon-prime-container
-        image: amazon-prime140191120701.dkr.ecr.ap-south-1.amazonaws.com/amazon-prime-clone:latest
+        image: 140191120701.dkr.ecr.ap-south-1.amazonaws.com/amazon-prime-clone:latest
         ports:
         - containerPort: 3000
 ...
